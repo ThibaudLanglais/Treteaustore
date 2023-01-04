@@ -1,0 +1,68 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Lexend', sans-serif;
+   --primary-bg: #0F0F0F;
+   --red: #FF4646;
+   --green: #04C900;
+   --blue: #0062F5;
+   --table-odd: #003687;
+   --table-even: #003D98;
+}
+
+button {
+   cursor: pointer;
+   border: 0;
+   background: none;
+}
+
+body{
+   margin: 0;
+   min-height: 100vh;
+   background: var(--primary-bg);
+   background-image: url(./assets/overlay-bg.png);
+   background-size: cover;
+   background-blend-mode: soft-light;
+   color: white;
+}
+
+main {
+   padding: 20px;
+   max-width: 1440px;
+   margin: auto;
+}
+
+.h1-group {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.h1-group button{
+   background: var(--blue);
+   border: 0;
+   padding: 10px 20px;
+}
+
+#clients-table table{
+   width: 100%;
+   margin-top: 30px;
+   background: var(--blue);
+   border-spacing: 0;
+}
+#clients-table td, #clients-table th{
+   text-align: center;
+}
+#clients-table tr{
+   height: 60px;
+}
+#clients-table tbody tr:hover{
+   filter: brightness(0.8);
+}
+#clients-table tbody tr:nth-child(odd){
+   background: var(--table-odd);
+}
+#clients-table tbody tr:nth-child(even){
+   background: var(--table-even);
+}
