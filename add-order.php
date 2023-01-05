@@ -15,7 +15,7 @@
         </div>
         <div>
             <form action="#">
-                <div class="column-2">
+                <div class="columns-2">
                     <div class="label-input-group-1">
                         <label for="">Date de la commande</label>
                         <input type="text" name="" id="">
@@ -26,7 +26,7 @@
                     </div>
                     
                 </div>
-                <div class="column-2">
+                <div class="columns-2">
                     <div class="label-input-group-1">
                         <label for="">Date prévue d'arrivée </label>
                         <input type="text" name="" id="">
@@ -38,7 +38,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="column-2">
+                <div class="columns-2">
                     <div class="label-input-group-1">
                         <label for="">Note</label>
                         <textarea name="" id="" cols="30" rows="10"></textarea>
