@@ -41,7 +41,7 @@
                 <div class="columns-2">
                     <div class="label-input-group-1">
                         <label for="">Note</label>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <textarea name="" id="" cols="30" rows="10" style="resize:none;"></textarea>
                     </div>    
                     <div class="label-input-group-1">
                         <label for="">Frais</label>
