@@ -38,31 +38,91 @@ main {
    display: flex;
    justify-content: space-between;
    align-items: center;
+   margin-bottom: 30px;
 }
 .h1-group button{
    background: var(--blue);
    border: 0;
    padding: 10px 20px;
 }
+.h1-group a:hover{
+   filter: brightness(0.8);
+}
+.h1-group a button{
+   text-decoration: none;
+   color: white;
+}
 
-#clients-table table{
+#admin-table table{
    width: 100%;
    margin-top: 30px;
    background: var(--blue);
    border-spacing: 0;
 }
-#clients-table td, #clients-table th{
+#admin-table td, #admin-table th{
    text-align: center;
 }
-#clients-table tr{
+#admin-table tr{
    height: 60px;
 }
-#clients-table tbody tr:hover{
+#admin-table tbody tr:hover{
    filter: brightness(0.8);
 }
-#clients-table tbody tr:nth-child(odd){
+#admin-table tbody tr:nth-child(odd){
    background: var(--table-odd);
 }
-#clients-table tbody tr:nth-child(even){
+#admin-table tbody tr:nth-child(even){
    background: var(--table-even);
+}
+#admin-table a {
+   color: var(--blue);
+}
+/* Layouts */
+.columns-2{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 20px;
+}
+/* Groupes de inputs et label réutilisés partout */
+.label-input-group-1{
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+}
+.label-input-group-1 input{
+   border: 1px solid white;
+   padding: 15px;
+   height: 40px;
+   background: rgba(0, 0, 0, 0.5);
+   color: white;
+}
+.label-input-group-2{
+   display: flex;
+   gap: 15px;
+   align-items: center;
+}
+
+/* Forms */
+.form-footer{
+   display: flex;
+   gap: 40px;
+   justify-content: flex-end;
+   align-items: center;
+}
+.form-footer .cancel{
+   color: var(--red);
+   text-decoration: none;
+   font-size: 20px;
+   font-weight: bold;
+}
+.form-footer .confirm:hover, .form-footer .cancel:hover{
+   filter: brightness(0.8);
+}
+.form-footer .confirm{
+   color: var(--green);
+   font-size: 20px;
+   text-decoration: none;
+   font-weight: bold;
+   border: 0;
+   background: none;
 }

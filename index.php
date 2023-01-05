@@ -12,11 +12,11 @@
     <main>
         <div class="h1-group">
             <h1>Gérer les clients</h1>
-            <button>
-                Ajouter un client
-            </button>
+            <a href="./add-client.php">
+            <button>Ajouter un client</button>
+            </a>
         </div>
-        <div id="clients-table">
+        <div id="admin-table">
             <table>
                 <thead>
                     <tr>
@@ -29,6 +29,30 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>17-SPR-0001</td>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>Silver</td>
+                        <td>300</td>
+                        <td>
+                            <button>
+                                <img src="./assets/edit.svg" alt="Éditer le client">
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>17-SPR-0001</td>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>Silver</td>
+                        <td>300</td>
+                        <td>
+                            <button>
+                                <img src="./assets/edit.svg" alt="Éditer le client">
+                            </button>
+                        </td>
+                    </tr>
                     <tr>
                         <td>17-SPR-0001</td>
                         <td>John</td>
