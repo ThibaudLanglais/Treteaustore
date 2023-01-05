@@ -12,7 +12,7 @@
     <main>
         <div class="h1-group">
             <h1>Gérer les commandes</h1>
-            <a href="#">
+            <a href="./add-orders.php">
                 <button>
                     Ajouter une commande
                 </button>
