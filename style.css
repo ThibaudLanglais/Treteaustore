@@ -33,17 +33,18 @@ main {
    margin: auto;
 }
 
-.h1-group {
+.h1-group, .h2-group {
    width: 100%;
    display: flex;
    justify-content: space-between;
    align-items: center;
    margin-bottom: 30px;
 }
-.h1-group button{
+.button-1{
    background: var(--blue);
    border: 0;
    padding: 10px 20px;
+   width: fit-content;
 }
 .h1-group a:hover{
    filter: brightness(0.8);
@@ -84,17 +85,20 @@ main {
    gap: 20px;
 }
 /* Groupes de inputs et label réutilisés partout */
+input, textarea, select{
+   border: 1px solid white;
+   padding: 0 15px;
+   height: 40px;
+   background: rgba(0, 0, 0, 0.5);
+   color: white;
+}
+textarea{
+   height: auto;
+}
 .label-input-group-1{
    display: flex;
    flex-direction: column;
    gap: 15px;
-}
-.label-input-group-1 input{
-   border: 1px solid white;
-   padding: 15px;
-   height: 40px;
-   background: rgba(0, 0, 0, 0.5);
-   color: white;
 }
 .label-input-group-2{
    display: flex;
@@ -103,6 +107,11 @@ main {
 }
 
 /* Forms */
+form{
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
 .form-footer{
    display: flex;
    gap: 40px;
