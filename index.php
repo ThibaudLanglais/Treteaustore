@@ -13,7 +13,7 @@
         <div class="h1-group">
             <h1>Gérer les clients</h1>
             <a href="./add-client.php">
-            <button class="button-1">Ajouter un client</button>
+            <button>Ajouter un client</button>
             </a>
         </div>
         <div id="admin-table">
