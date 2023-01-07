@@ -49,10 +49,6 @@
                 <div class="label-input-group-1">
                     <label for="">Membership</label>
                     <input type="text" name="" id="">
-                    <div class="label-input-group-2">
-                        <input type="checkbox" name="" id="">
-                        <label for="">Utilisateur Platinum</label>
-                    </div>
                 </div>
             </div>
             <div class="form-footer">

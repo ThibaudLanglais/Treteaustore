@@ -50,14 +50,17 @@
                 </div>
             </div>
             <div class="columns-2">
-                <div class="label-input-group-1">
-                    <label for="">Membership</label>
-                    <input type="text" name="" id="">
+                <div>
                     <div class="label-input-group-2">
                         <input type="checkbox" name="" id="">
-                        <label for="">Utilisateur Platinum</label>
-                    </div>
+                        <label for="">Adresse de livraison</label>
+                    </div>  
+                    <div class="label-input-group-2">
+                        <input type="checkbox" name="" id="">
+                        <label for="">Adresse de facturation</label>
+                    </div>  
                 </div>
+                
             </div>
             <div class="form-footer">
                 <a class="cancel" href="javascript:history.back()">Annuler</a>
