@@ -1,6 +1,5 @@
 <?php
-$localhost = false;
-$base = isset($isHomePage) ? '.' : '..';
+$localhost = true;
 
 if ($localhost === true) {
 	if (!defined("MYHOST"))
@@ -10,7 +9,7 @@ if ($localhost === true) {
 	if (!defined("MYPASS"))
 		define("MYPASS", "");
 	if (!defined("MYDB"))
-		define("MYDB", "Ludotheque");
+		define("MYDB", "treteaustore");
 } else {
 	if (!defined("MYHOST"))
 		define("MYHOST", "e-srv-lamp.univ-lemans.fr");
@@ -22,8 +21,9 @@ if ($localhost === true) {
 		define("MYDB", "i190488");
 }
 
+global $bdd;
 $bdd = new PDO("mysql:host=" . MYHOST . ";dbname=" . MYDB, MYUSER, MYPASS);
 
-require("$base/api/functions.php");
+require("./api/functions.php");
 
 

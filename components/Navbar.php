@@ -22,10 +22,10 @@
    <nav id="navbar-admin">
       <ul class="nav-items">
          <li class="nav-item">
-            <a href="./">Clients</a>
+            <a href="./?p=clients">Clients</a>
          </li>
          <li class="nav-item">
-            <a href="./orders.php">Commandes</a>
+            <a href="./?p=orders">Commandes</a>
          </li>
       </ul>
    </nav>

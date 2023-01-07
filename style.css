@@ -6,10 +6,21 @@
    --primary-bg: #0F0F0F;
    --red: #FF4646;
    --green: #04C900;
+   --form-failure: #FF4646;
+   --form-success: #028900;
    --blue: #0062F5;
    --navy-blue:#003687;
    --table-odd: #003687;
    --table-even: #003D98;
+}
+
+a{
+   text-decoration: none;
+   color: inherit;
+}
+
+input[type="submit"]{
+   cursor: pointer;
 }
 
 button {
@@ -135,4 +146,33 @@ form{
    font-weight: bold;
    border: 0;
    background: none;
+}
+
+.page-404{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 50px;
+   text-align: center;
+}
+
+.client-code {
+ text-transform: uppercase;   
+}
+
+.form-response{
+   padding: 15px;
+   display: flex;
+   justify-content: space-between;
+   color: white;
+   margin-bottom: 20px;
+}
+.form-success{
+   background: var(--form-success);
+}
+.form-failure{
+   background: var(--form-failure);
+}
+.form-response a{
+   text-decoration: underline;
 }

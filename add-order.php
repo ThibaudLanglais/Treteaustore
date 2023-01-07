@@ -55,15 +55,18 @@
                             <input type="number" name="" id="">
                         </div>
                     </div>
-
                 </div>
-                <div class="h2-group">
-                    <h2>Client</h2>
+                <div>
+                    <div class="h2-group">
+                        <h2>Client</h2>
+                    </div>
+                    <button class="button-1">Sélectionner un client</button>
                 </div>
-                <button class="button-1">Sélectionner un client</button>
-                <div class="h2-group">
-                    <h2>Contenu</h2>
-                    <button>Ajouter un article +</button>
+                <div>
+                    <div class="h2-group">
+                        <h2>Contenu</h2>
+                        <button>Ajouter un article +</button>
+                    </div>
                 </div>
                 <div class="form-footer">
                     <a href="javascript:history.back()" class="cancel">Annuler</a>

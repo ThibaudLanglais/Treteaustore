@@ -12,10 +12,8 @@
     <main>
         <div class="h1-group">
             <h1>Gérer les commandes</h1>
-            <a href="./add-order.php"> 
-                <button class="button-1">
-                    Ajouter une commande
-                </button>
+            <a href="./?p=add-order"> 
+                <button class="button-1">Ajouter une commande</button>
             </a>
         </div>
         <div id="admin-table">

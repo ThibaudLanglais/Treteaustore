@@ -1,29 +1,29 @@
-.points{
-    padding: 10px;
-    border:1px solid rgba(255, 255, 255, 1);
-}
-.orders{
-    padding: 10px;
-    border:1px solid rgba(255, 255, 255, .4);
+.points {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 1);
 }
 
-.addresses{
-    padding-top: 30px;
+.orders {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.addresses button{
-    background-color: var(--navy-blue);
-    width: 35px;
-    height: 35px;
-
+.addresses {
+  padding-top: 30px;
 }
+
+.addresses .columns-2 button {
+  background-color: var(--navy-blue);
+  width: 35px;
+  height: 35px;
+}
+
 .addresses button img {
-    width: 15px;
-    height: 15px;
-
+  width: 15px;
+  height: 15px;
 }
 
-.addresses .label-input-group-2{
-    display: flex;
-    justify-content: space-between;
+.addresses .label-input-group-2 {
+  display: flex;
+  justify-content: space-between;
 }

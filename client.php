@@ -82,7 +82,7 @@
                     <div class="label-input-group-2">
                         <p>1, Jutulheim Edda, NORWAY</p>
                         <a href="./address.php">
-                            <button>
+                            <button type="button">
                                 <img src="./assets/edit.svg" alt="Éditer l'adresse">
                             </button>
                         </a>
@@ -90,8 +90,8 @@
                     <div class="label-input-group-2">
                         <p>20 rue des rues du Mans 72100 Le Mans</p>
                         <a href="./address.php">
-                            <button>
-                            <img src="./assets/edit.svg" alt="Éditer l'adresse">
+                            <button type="button">
+                                <img src="./assets/edit.svg" alt="Éditer l'adresse">
                             </button>
                         </a>
                     </div>
