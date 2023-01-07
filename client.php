@@ -74,6 +74,9 @@
             <div class="addresses">
                 <div class="h2-group">
                     <h2>Adresses</h2>
+                    <a href="./add-address.php">
+                        <button>Ajouter une adresse</button>
+                    </a>
                 </div>
                 <div class="columns-2">
                     <div class="label-input-group-2">

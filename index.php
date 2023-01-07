@@ -36,9 +36,11 @@
                         <td>Silver</td>
                         <td>300</td>
                         <td>
-                            <button>
-                                <img src="./assets/edit.svg" alt="Éditer le client">
-                            </button>
+                            <a href="./client.php">
+                                <button>
+                                    <img src="./assets/edit.svg" alt="Éditer le client">
+                                </button>
+                            </a> 
                         </td>
                     </tr>
                     <tr>
@@ -48,9 +50,11 @@
                         <td>Silver</td>
                         <td>300</td>
                         <td>
-                            <button>
-                                <img src="./assets/edit.svg" alt="Éditer le client">
-                            </button>
+                            <a href="./client.php">
+                                <button>
+                                    <img src="./assets/edit.svg" alt="Éditer le client">
+                                </button>
+                            </a> 
                         </td>
                     </tr>
                     <tr>
@@ -60,9 +64,11 @@
                         <td>Silver</td>
                         <td>300</td>
                         <td>
-                            <button>
-                                <img src="./assets/edit.svg" alt="Éditer le client">
-                            </button>
+                            <a href="./client.php">
+                                <button>
+                                    <img src="./assets/edit.svg" alt="Éditer le client">
+                                </button>
+                            </a> 
                         </td>
                     </tr>
                 </tbody>
