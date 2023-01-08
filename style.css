@@ -12,6 +12,11 @@
    --navy-blue:#003687;
    --table-odd: #003687;
    --table-even: #003D98;
+   outline: none;
+}
+header{
+   position: fixed;
+   width: 100%;
 }
 
 a{
@@ -41,6 +46,7 @@ body{
 
 main {
    padding: 20px;
+   padding-top: 140px;
    max-width: 1440px;
    margin: auto;
 }

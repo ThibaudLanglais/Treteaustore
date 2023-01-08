@@ -8,6 +8,9 @@
     <title>Treteaustore | Admin</title>
     <?php include './components/Head.php' ?>
     <link rel="stylesheet" href="./assets/order-detail.css">
+    <script src="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.js"></script>
+    <script src="./assets/js/order-details.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.css">
 </head>
 
 <body>
@@ -62,9 +65,40 @@
                     <h2>Client</h2>
                 </div>
                 <button class="button-1">Sélectionner un client</button>
-                <div class="h2-group">
-                    <h2>Contenu</h2>
-                    <button>Ajouter un article +</button>
+                <div>
+                    <div class="h2-group">
+                        <h2>Contenu</h2>
+                        <button>Ajouter un article +</button>
+                    </div>
+                    <div class="packets">
+                        <div class="packet">
+                            <div class="item">
+                                <button type="button" class="grab-indicator">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                                <div class="item-details">
+                                <p>Nom de l'item</p>
+                                <select class="item-status-input" name="item-status">
+                                    <option value="in-stock">En stock</option>
+                                    <option selected value="prepared">Empaqueté</option>
+                                </select>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="item" data-id="item-1-1">
+                            <button type="button" class="grab-indicator">
+                                <span></span>
+                                <span></span>
+                            </button>
+                            <div class="item-details">
+                                <p>Nom de l'item</p>
+                                <select class="item-status-input" name="item-status">
+                                    <option value="in-stock">En stock</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="h2-group">
                     <h2>Paiement</h2>

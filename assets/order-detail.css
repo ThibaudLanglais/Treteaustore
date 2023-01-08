@@ -2,3 +2,42 @@
     padding: 10px;
     border:1px dashed rgba(255, 255, 255, .4);
 }
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.item .item-details{
+    padding: 20px;
+    border: 1px solid white;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.item .grab-indicator{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 14px;
+}
+.item .grab-indicator span{
+    width: 100%;
+    height: 1px;
+    background: white;
+    opacity: 0.7;
+}
+.packets{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+}
+.packet{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    border: 1px dashed white;
+}
