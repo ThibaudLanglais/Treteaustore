@@ -56,7 +56,7 @@ main {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin-bottom: 30px;
+   margin-bottom: 15px;
 }
 .button-1{
    background: var(--blue);
@@ -112,6 +112,7 @@ input, textarea, select{
 }
 textarea{
    height: auto;
+   padding: 15px;
 }
 .label-input-group-1{
    display: flex;
@@ -125,7 +126,7 @@ textarea{
 }
 
 /* Forms */
-form{
+form, .form{
    display: flex;
    flex-direction: column;
    gap: 20px;

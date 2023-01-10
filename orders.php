@@ -29,11 +29,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="./?p=order-detail">010120-SOI-C001</a></td>
+                        <td><a href="./?p=order-detail&id=<?= 1 ?>">010120-SOI-C001</a></td>
                         <td>30/12/2019</td>
                         <td><a href="#">20-SPR-0328</a></td>
                         <td>M.Dunder</td>
-                        <td>179§</td>
+                        <td>179€</td>
                     </tr>
                 </tbody>
             </table>

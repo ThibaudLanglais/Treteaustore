@@ -39,3 +39,20 @@ function getMembership($points)
     if($points >= 700) $membership = 'Platinum';
     return $membership;
 }
+
+function getItems()
+{
+    global $bdd;
+    $req = $bdd->prepare("SELECT * FROM `item`");
+    $req->execute();
+    $req = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $req;
+}
+
+function getClientPoints($id){
+    global $bdd;
+    $req = $bdd->prepare("SELECT * FROM `point` WHERE point.id_client = ?");
+    $req->execute(array($id));
+    $req = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $req;
+}

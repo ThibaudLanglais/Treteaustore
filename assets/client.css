@@ -1,11 +1,6 @@
-.points {
+.points, .orders {
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 1);
-}
-
-.orders {
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .addresses {
@@ -26,4 +21,9 @@
 .addresses .label-input-group-2 {
   display: flex;
   justify-content: space-between;
+}
+
+.orders a {
+  color: var(--blue);
+  text-decoration: underline;
 }
