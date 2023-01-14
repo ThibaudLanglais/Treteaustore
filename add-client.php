@@ -21,7 +21,7 @@
             <p>
             	<?= $success ? "L'utilisateur a bien été ajouté !" : "Erreur lors de l'ajout de l'utilisateur" ?>
             </p>
-            <a href="./p=clients">Voir les clients</a>
+            <a href="./?p=clients">Voir les clients</a>
         </div>    
         <?php endif; ?>
         <div class="h1-group">

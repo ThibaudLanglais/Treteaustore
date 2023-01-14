@@ -38,7 +38,7 @@
                             $date = $value['date_created'];
                             $date = new DateTime($date);
                             echo ($date->format('y') . '-' . $date->format('M') . '-' . $value['id_client']);?></a></td>
-                        <td><?= $value['last_name'] . $value['first_name'] ?></td>
+                        <td><?= $value['last_name'] . " " . $value['first_name'] ?></td>
                         <td><?= $value["total"] ?>€</td>
                     </tr>
                 <?php endforeach; ?> 

@@ -65,6 +65,6 @@ let renderOrderClient = (parentNode, clientData) => {
    parentNode.innerHTML = `
    <p>[${code}] ${clientData.last_name} ${clientData.first_name}</p>
    <input type="hidden" name="order-client-id" value="${clientData.id_client}"/>
-   <a href="./?p=edit-client&id=${clientData.id_client}">Voir la fiche</a>
+   <a href="./?p=client&id=${clientData.id_client}">Voir la fiche</a>
    `
 }

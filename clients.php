@@ -41,9 +41,14 @@
                         <td><?= $value['est_ultimate'] ? 'Ultimate' : getMembership($value['points']) ?></td>
                         <td><?= $value['points'] ?? 0 ?></td>
                         <td>
-                            <a href="./?p=edit-client&id=<?= $value['id_client'] ?>">
+                            <a href="./?p=client&action=edit&id=<?= $value['id_client'] ?>">
                                 <button>
                                     <img src="./assets/edit.svg" alt="Éditer le client">
+                                </button>
+                            </a> 
+                            <a href="./?p=client&id=<?= $value['id_client'] ?>">
+                                <button>
+                                    <img src="./assets/eye.svg" alt="Voir la fiche client">
                                 </button>
                             </a> 
                         </td>

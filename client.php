@@ -81,12 +81,16 @@
                                 <div class="label-input-group-1">
                                     <p>Points</p>
                                     <div class="points">
-                                        <?php foreach ($points as $key => $value) : ?>
-                                            <p><?= $value['quantite'] ?> point(s),
-                                                <?= $value['expiration_date'] == null ?
-                                                    "pas d'expiration" : "expirent le " . date_format(new DateTime($value['expiration_date']), 'd/m/Y')
-                                                ?>.</p>
-                                        <?php endforeach; ?>
+                                    <?php if(empty($points)): ?>
+                                    <p>Aucun points</p>
+                                    <?php else: ?>
+                                    <?php foreach ($points as $key => $value) : ?>
+                                        <p><?= $value['quantite'] ?> point(s),
+                                            <?= $value['expiration_date'] == null ?
+                                                "pas d'expiration" : "expirent le " . date_format(new DateTime($value['expiration_date']), 'd/m/Y')
+                                            ?>.</p>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="label-input-group-1">

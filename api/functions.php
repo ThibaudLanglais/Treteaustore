@@ -59,8 +59,15 @@ function getClientPoints($id){
 
 function getOrders(){
     global $bdd;
-    $req = $bdd->prepare("SELECT *, sum(total_item) as total from (select quantite*prix_effectif as total_item, id_item, id_order from contient) as t natural join commande natural join client group by id_order");
+    $req = $bdd->prepare("SELECT *, sum(prix_effectif * quantite) as total from commande natural join client left join contient on commande.id_order = contient.id_order group by commande.id_order");
     $req->execute();
     $req = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $req;
+}
+function getOrder($id){
+    global $bdd;
+    $req = $bdd->prepare("SELECT * FROM commande natural join client WHERE id_order = ?");
+    $req->execute(array($id));
+    $req = $req->fetch(PDO::FETCH_ASSOC);
     return $req;
 }
