@@ -25,6 +25,7 @@
     if (empty($client)) header('Location: ./?p=clients');
     $points = getClientPoints($_GET['id']);
     $isEdit = isset($_GET['action']) && $_GET['action'] == "edit";
+    $orders = getClientOrders($_GET['id']);
     ?>
     <main>
         <?php if (isset($success)) : ?>
@@ -96,8 +97,12 @@
                                 <div class="label-input-group-1">
                                     <p>Historique des commandes </p>
                                     <div class="orders">
-                                        <p>12/03/2018 - 125€ - <a href="./?p=order-detail&id=1">Voir le détail</a></p>
-                                    </div>
+                                            <?php if(empty($orders)): ?>
+                                            <p>Aucune commande</p>
+                                            <?php else: foreach ($orders as $key => $value): ?>
+                                                <p><?= date_format(new DateTime($value['date_order']), 'd/m/Y') ?> - <?= $value['total'] ?>€ - <a href="./?p=order-detail&id=<?= $value['id_order'] ?>">Voir le détail</a></p>
+                                            <?php endforeach;endif; ?>
+                                        </div>
                                 </div>
                             </div>
                             <div class="form-footer">

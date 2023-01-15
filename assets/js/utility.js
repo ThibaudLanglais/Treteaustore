@@ -42,9 +42,11 @@ let renderItem = (parentNode, itemData) => {
    str += `</select>
            <div class="item-right-bottom">
                <p>Quantité : </p>
-               <input type="number" min="0" step="1" value="${itemData.quantity}">
+               <input class="item-quantity-input" name="basket-item-quantity-${itemData.id_item}" type="number" min="0" step="1" value="${itemData.quantity}">
+               <input class="item-id-input" name="basket-item-id-${itemData.id_item}" type="hidden" value="${itemData.id_item}">
+               <input class="item-price-input" name="basket-item-price-${itemData.id_item}" type="hidden" value="${itemData.prix_de_vente}">
                <p>Total: ${(itemData.quantity * itemData.prix_de_vente).toFixed(2)}€</p>
-               <button type="button">Supprimer de la commande</button>
+               <button class="delete-item" type="button">Supprimer de la commande</button>
            </div>
        </div>
    </div>

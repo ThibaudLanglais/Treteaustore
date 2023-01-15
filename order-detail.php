@@ -9,10 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treteaustore | Admin</title>
     <?php include './components/Head.php' ?>
-    <link rel="stylesheet" href="./assets/order-detail.css">
+    <link rel="stylesheet" href="./assets/order.css">
     <script src="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.js"></script>
     <script src="./assets/js/utility.js" defer></script>
-    <script src="./assets/js/order-details.js" defer></script>
+    <script src="./assets/js/order.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.css">
 </head>
 
@@ -27,7 +27,7 @@
             <h1>Commande n°<?= $_GET['id'] ?></h1>
         </div>
         <div>
-            <form action="#">
+            <form action="#" data-action="edit">
                 <div class="columns-2">
                     <div class="label-input-group-1">
                         <label for="order-date">Date de la commande</label>

@@ -71,3 +71,36 @@ function getOrder($id){
     $req = $req->fetch(PDO::FETCH_ASSOC);
     return $req;
 }
+
+function insertOrder($date_order, $order_status, $dispatched_date, $note, $frais_service, $frais_livraison, $id_client, $date_eta){
+    global $bdd;
+    $req = $bdd->prepare(
+        "INSERT INTO commande (date_order, order_status, dispatched_date, note, frais_service, frais_livraison, id_client, date_eta) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    return $req->execute(array(
+        $date_order, 
+        $order_status, 
+        empty($dispatched_date) ? null : $dispatched_date,
+        empty($note) ? null : $note,
+        empty($frais_service) ? null : $frais_service,
+        empty($frais_livraison) ? null : $frais_livraison,
+        $id_client,
+        empty($date_eta) ? null : $date_eta
+    ));   
+}
+
+function insertOrderItem($orderId, $itemId, $price, $quantity){
+    global $bdd;
+    $req = $bdd->prepare(
+        "INSERT INTO contient (id_order, id_item, prix_effectif, quantite) 
+        VALUES (?, ?, ?, ?)");
+    return $req->execute(array($orderId, $itemId, $price, $quantity));      
+}
+
+function getClientOrders($id){
+    global $bdd;
+    $req = $bdd->prepare("SELECT *, sum(prix_effectif * quantite) as total from commande natural join client left join contient on commande.id_order = contient.id_order WHERE commande.id_client = ? group by commande.id_order");
+    $req->execute(array($id));
+    $req = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $req; 
+}
