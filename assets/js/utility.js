@@ -20,18 +20,14 @@ let renderItem = (parentNode, itemData) => {
    `
    var str = `
    <div class="item">
-   <button type="button" class="grab-indicator">
-       <span></span>
-       <span></span>
-   </button>
    <div class="item-details">
-       <img class="item-photo" src="https://m1.lmcdn.fr/media/15/5ea83d51b7c50511cc71b219/3241116728/treteau-pvc5ea83d510e25e10009c7a28d.jpg?crop=4:3&format=jpg&width=300" alt="">
+       <img class="item-photo" src="${itemData.photo}" alt="">
        <div class="item-middle">
            <p class="item-name">${itemData.name_item}</p>
            <p>Unité: ${itemData.prix_de_vente}€ | Promotion: aucune</p>
        </div>
        <div class="item-right">
-           <select class="item-status-input" name="item-status">
+           <select disabled class="item-status-input" name="item-status">
    `
    itemStatusList.forEach(status => {
       str += `
@@ -42,10 +38,11 @@ let renderItem = (parentNode, itemData) => {
    str += `</select>
            <div class="item-right-bottom">
                <p>Quantité : </p>
-               <input class="item-quantity-input" name="basket-item-quantity-${itemData.id_item}" type="number" min="0" step="1" value="${itemData.quantity}">
+               <input class="item-quantite-input" name="basket-item-quantite-${itemData.id_item}" type="number" min="0" step="1" value="${itemData.quantite}">
                <input class="item-id-input" name="basket-item-id-${itemData.id_item}" type="hidden" value="${itemData.id_item}">
                <input class="item-price-input" name="basket-item-price-${itemData.id_item}" type="hidden" value="${itemData.prix_de_vente}">
-               <p>Total: ${(itemData.quantity * itemData.prix_de_vente).toFixed(2)}€</p>
+               <input class="item-operation-input" name="basket-item-operation-${itemData.id_item}" type="hidden" value="${itemData.operation}">
+               <p>Total: ${(itemData.quantite * itemData.prix_de_vente).toFixed(2)}€</p>
                <button class="delete-item" type="button">Supprimer de la commande</button>
            </div>
        </div>

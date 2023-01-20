@@ -10,8 +10,8 @@
    --form-success: #028900;
    --blue: #0062F5;
    --navy-blue:#003687;
-   --table-odd: #003687;
-   --table-even: #003D98;
+   --table-odd: #111;
+   --table-even: #171717;
    outline: none;
 }
 header{
@@ -39,6 +39,7 @@ body{
    min-height: 100vh;
    background: var(--primary-bg);
    background-image: url(./assets/overlay-bg.png);
+   background-attachment: fixed;
    background-size: cover;
    background-blend-mode: soft-light;
    color: white;

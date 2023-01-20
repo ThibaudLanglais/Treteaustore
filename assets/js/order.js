@@ -24,6 +24,9 @@ const orderId = new URLSearchParams(location.href).get('id');
  var packetsContainer = document.querySelector('.packets')
  const form = document.querySelector('form');
  const formAction = form.dataset.action;
+ const itemTotalPriceSpan = document.getElementById('items-total-price');
+ const servicePriceSpan = document.getElementById('service-fee-price');
+ const shippingPriceSpan = document.getElementById('shipping-fee-price');
  const totalSpan = document.getElementById('order-total-span');
 
 var orderDetails = [
@@ -46,28 +49,23 @@ const orderInputs = [
    inputServiceFee
 ]
 
-if(formAction == "edit"){
-   const isNewEdit = localStorage.getItem('order-stored') === null || localStorage.getItem('order-stored') != orderId;
-   if(isNewEdit){
-      localStorage.clear();
-      localStorage.setItem('order-stored', orderId);
-      inputsToStorage();
-      localStorage.setItem('order-items', JSON.stringify([]));
-   }else{
-      storageToInputs();
-      renderItems();
-   }
-}else if(formAction == "add"){
-   const hasAddStarted = localStorage.getItem('order-stored') === "newOrder";
-   if(hasAddStarted){
-      storageToInputs();
-      renderItems();
-   } else{
-      localStorage.clear();
-      localStorage.setItem('order-stored', "newOrder");
-   }
+const doNotClearCache = localStorage.getItem('do-not-clear-cache');
+if(doNotClearCache == null){
+   //Clear cache
+   localStorage.clear();
+   localStorage.setItem('order-stored', orderId ?? "newOrder");
+   inputsToStorage();
+   renderPrice();
+   attachListenersToOrderItems();
 }else{
-   history.back();
+   localStorage.removeItem('do-not-clear-cache')
+   storageToInputs();
+   renderItems();
+   if(formAction == "edit"){
+   }else if(formAction == "add"){
+   }else{
+      history.back();
+   }
 }
 
 
@@ -88,6 +86,13 @@ function inputsToStorage(){
    orderInputs.forEach((input, index) => {
       localStorage.setItem(orderDetails[index], JSON.stringify(input.value))
    });
+   //Get and store order items
+   let orderItems = [];
+   document.querySelectorAll('.item').forEach(e => {
+      var data = JSON.parse(e.dataset.itemData);
+      orderItems.push(data);
+   })
+   localStorage.setItem('order-items', JSON.stringify(orderItems))
 }
 
 function storageToInputs(){
@@ -104,25 +109,44 @@ function storageToInputs(){
 
 function renderItems(){
    packetsContainer.innerHTML = "";
-   var somme = 0;
    JSON.parse(localStorage.getItem('order-items')).forEach(item => {
       renderItem(packetsContainer, item)
-      somme += item.quantity * item.prix_de_vente;
    });
+   
+   attachListenersToOrderItems();
+
+   renderPrice();
+}
+
+function attachListenersToOrderItems(){
    packetsContainer.querySelectorAll('.item').forEach(e => {
-      const quantityInput = e.querySelector('.item-quantity-input');
+      const quantityInput = e.querySelector('.item-quantite-input');
       const itemIdInput = e.querySelector('.item-id-input');
       quantityInput.addEventListener('change' , () => updateItem(itemIdInput.value, quantityInput.value))
       e.querySelector('.delete-item').addEventListener('click', () => removeItem(itemIdInput.value))
    })
-
-   totalSpan.innerHTML = somme;
 }
 
-function updateItem(id, quantity){
+function renderPrice(){
+   var sommeItems = 0;
+   JSON.parse(localStorage.getItem('order-items')).forEach(item => {
+      sommeItems += parseFloat(item.quantite) * parseFloat(item.prix_de_vente);
+   });
+   itemTotalPriceSpan.textContent = sommeItems.toFixed(2);
+   var servicePrice = parseFloat(inputServiceFee.value);
+   var shippingPrice = parseFloat(inputShippingFee.value);
+
+   servicePriceSpan.textContent = servicePrice.toFixed(2);
+   shippingPriceSpan.textContent = shippingPrice.toFixed(2);
+   totalSpan.textContent = (sommeItems + servicePrice + shippingPrice).toFixed(2);
+   
+   //Reste à payer
+}
+
+function updateItem(id, quantite){
    var orderItems = JSON.parse(localStorage.getItem('order-items'));
    orderItems.forEach(e => {
-      if(e.id_item == id) e.quantity = quantity;
+      if(e.id_item == id) e.quantite = quantite;
    })
    localStorage.setItem('order-items', JSON.stringify(orderItems));
    renderItems()
@@ -130,6 +154,6 @@ function updateItem(id, quantity){
 
 function removeItem(id){
    var orderItems = JSON.parse(localStorage.getItem('order-items'));
-      localStorage.setItem('order-items', JSON.stringify(orderItems.filter(e => e.id_item != id)));
-   renderItems()
+   localStorage.setItem('order-items', JSON.stringify(orderItems.filter(e => e.id_item != id)));
+   renderItems();
 }
