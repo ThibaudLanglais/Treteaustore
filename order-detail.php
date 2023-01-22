@@ -1,5 +1,12 @@
 <?php
-if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
+if (!isset($_GET['id'])) header("Location: ./?p=orders"); 
+$paymentModes = array(
+    "carte-bancaire" => "Carte bancaire",
+    "espece" => "Espèce",
+    "points" => "Points fidélité"
+);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,16 +18,30 @@ if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
     <title>Treteaustore | Admin</title>
     <?php include './components/Head.php' ?>
     <link rel="stylesheet" href="./assets/order.css">
-    <!-- <script src="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.js"></script> -->
     <script src="./assets/js/utility.js" defer></script>
     <script src="./assets/js/order.js" defer></script>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bevacqua/dragula@3.7.3/dist/dragula.min.css"> -->
 </head>
 
 <body>
     <?php
     include './components/Navbar.php';
-    if (isset($_POST["submit"])) {
+    include './components/Variables.php';
+    if(isset($_POST['submit-payment'])){
+        $result = addPayment($_GET['id'], $_POST['payment-amount'], $_POST['payment-mode']);
+        if (!$result) {
+            $success = false;
+            $msg = "Erreur lors du paiement";
+            return;
+        }
+    }
+    else if(isset($_POST['delete'])){
+        $result = deleteOrder($_GET['id']);
+        if (!$result) {
+            $success = false;
+            $msg = "Erreur lors de la suppression de la commande";
+            return;
+        }
+    }else if (isset($_POST["submit"])) {
         if (!isset($_POST['order-client-id'])) {
             $success = false;
             $msg = "Sélectionnez un client";
@@ -50,16 +71,18 @@ if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
                     $quantite = $_POST['basket-item-quantite-' . $value];
                     $price = $_POST['basket-item-price-' . $value];
                     $operation = $_POST['basket-item-operation-' . $value];
+                    $status = $_POST['basket-item-status-input-' . $value];
                     array_push($itemList, $value);
                     if ($operation == "insert") {
-                        $result = insertOrderItem($_GET['id'], $id, $price, $quantite);
+                        $result = insertOrderItem($_GET['id'], $id, $price, $quantite, $status);
                         if (!$result) {
                             $success = false;
                             $msg = "Erreur lors de la mise à jour de la commande (ajout des items)";
                             return;
                         }
-                    } else if ($operation == "update") {
-                        $result = updateOrderItem($_GET['id'], $id, $price, $quantite);
+                    }
+                    if ($operation == "update") {
+                        $result = updateOrderItem($_GET['id'], $id, $price, $quantite, $status);
                         if (!$result) {
                             $success = false;
                             $msg = "Erreur lors de la mise à jour de la commande (mise à jour des items)";
@@ -92,7 +115,7 @@ if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
             <h1>Commande n°<?= $_GET['id'] ?></h1>
         </div>
         <div>
-            <form method="post" action="./?p=order-detail&id=<?= $_GET['id'] ?>" data-action="edit">
+            <form id="order-form" method="post" action="./?p=order-detail&id=<?= $_GET['id'] ?>" data-action="edit">
                 <div class="columns-2">
                     <div class="label-input-group-1">
                         <label for="order-date">Date de la commande</label>
@@ -137,7 +160,6 @@ if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
                             <input onchange="javascript:renderPrice()" min="0" step="0.01" type="number" value="<?= $order["frais_service"] ?? "0" ?>" name="order-service-fee" id="order-service-fee">
                         </div>
                     </div>
-
                 </div>
                 <div>
                     <div class="h2-group">
@@ -165,50 +187,46 @@ if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
                         </a>
                     </div>
                     <div class="packets">
-                        <?php foreach (getOrderItems($_GET['id']) as $key => $value) : $value['operation'] = "update"; ?>
-                            <div class="item" data-item-data="<?= htmlspecialchars(json_encode($value)) ?>">
-                                <div class="item-details">
-                                    <img class="item-photo" src="<?= $value['photo'] ?>" alt="<?= $value['name_item'] ?>">
-                                    <div class="item-middle">
-                                        <p class="item-name"><?= $value['name_item'] ?></p>
-                                        <p>Unité: <?= $value['prix_de_vente'] ?>€ | Promotion: aucune</p>
-                                    </div>
-                                    <div class="item-right">
-                                        <select disabled class="item-status-input" name="item-status">
-                                            <option <?= $value["status"] == "in-stock" ? "selected" : "" ?> value="in-stock">En stock</option>
-                                            <option <?= $value["status"] == "available" ? "selected" : "" ?> value="available">Disponible</option>
-                                            <option <?= $value["status"] == "not-available" ? "selected" : "" ?> value="not-available">Non disponible</option>
-                                            <option <?= $value["status"] == "out-of-stock" ? "selected" : "" ?> value="out-of-stock">Plus en stock</option>
-                                            <option <?= $value["status"] == "free-gift" ? "selected" : "" ?> value="free-gift">Offert</option>
-                                            <option <?= $value["status"] == "packed" ? "selected" : "" ?> value="packed">Empaqueté</option>
-                                            <option <?= $value["status"] == "dispatched" ? "selected" : "" ?> value="dispatched">Envoyé</option>
-                                            <option <?= $value["status"] == "arrived" ? "selected" : "" ?> value="arrived">Arrivé</option>
-                                            <option <?= $value["status"] == "delivered" ? "selected" : "" ?> value="delivered">Livré</option>
-                                            <option <?= $value["status"] == "other" ? "selected" : "" ?> value="other">Autre</option>
-                                        </select>
-                                        <div class="item-right-bottom">
-                                            <p>Quantité : </p>
-                                            <input class="item-quantite-input" name="basket-item-quantite-<?= $value['id_item'] ?>" type="number" min="0" step="1" value="<?= $value['quantite'] ?>">
-                                            <input class="item-id-input" name="basket-item-id-<?= $value['id_item'] ?>" type="hidden" value="<?= $value['id_item'] ?>">
-                                            <input class="item-price-input" name="basket-item-price-<?= $value['id_item'] ?>" type="hidden" value="<?= $value['prix_de_vente'] ?>">
-                                            <input class="item-operation-input" name="basket-item-operation-<?= $value['id_item'] ?>" type="hidden" value="update">
-                                            <p>Total: <?= $value['quantite'] * $value['prix_de_vente'] ?>€</p>
-                                            <button onclick="javascript:removeItem(<?= $value['id_item'] ?>)" class="delete-item" type="button">Supprimer de la commande</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                        <?php foreach (getOrderItems($_GET['id']) as $key => $value) : $value['operation'] = "update";
+                            include './components/order-detail/OrderItem.php';
+                        endforeach; ?>
                     </div>
                 </div>
-
+            </form>
         </div>
         </div>
         <div>
             <div class="h2-group">
                 <h2>Paiement</h2>
             </div>
-            <div class="history">Historique de paiement</div>
+            <form method="post" id="payment-form" action="./?p=order-detail&id=<?= $_GET['id'] ?>">
+                <h3>Ajouter un paiement</h3>
+                <div class="label-input-group-2">
+                    <label for="payment-mode">Méthode de paiement</label>
+                    <select name="payment-mode" id="payment-mode">
+                        <option value="carte-bancaire">Carte bancaire</option>
+                        <option value="espece">Espèce</option>
+                        <option value="points">Points fidélité</option>
+                    </select>
+                </div>
+                <div class="label-input-group-2">
+                    <label for="payment-amount">Montant</label>
+                    <input type="number" name="payment-amount" id="payment-amount" min="0.01" step="0.01" value="0.01">
+                </div>
+                <div class="form-footer">
+                <input name="submit-payment" type="submit" class="confirm" value="Ajouter le paiement">
+                </div>
+            </form>
+            <div class="history">
+                <p>Historique de paiement</p>
+                <?php  foreach(getOrderPayments($_GET['id']) as $key => $payment): ?>
+                <p class="payment-instance" data-amount="<?= $payment['montant'] ?>">
+                    <?= $payment['date_paiement'] ?>
+                    <?= $payment['montant'] . "€" ?>
+                    <?= "via " . $paymentModes[$payment['mode_paiement']] ?>
+                </p>
+                <?php endforeach; ?>
+            </div>
             <div class="order-total">
                 <span>Items : <span id="items-total-price"></span>€</span>
                 <span>Frais de service : <span id="service-fee-price"></span>€</span>
@@ -217,11 +235,10 @@ if (!isset($_GET['id'])) header("Location: ./?p=orders"); ?>
                 <span>Reste à payer : <span id="order-remaining-span"></span>€</span>
             </div>
             <div class="form-footer">
-                <a href="javascript:history.back()" class="cancel">Supprimer la commande</a>
-                <input name="submit" type="submit" class="confirm" value="Enregistrer">
+                <input form="order-form" type="submit" name="delete" class="cancel" value="Supprimer la commande">
+                <input form="order-form" name="submit" type="submit" class="confirm" value="Enregistrer">
             </div>
         </div>
-        </form>
         </div>
     </main>
 </body>

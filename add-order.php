@@ -44,7 +44,7 @@
                 foreach ($_POST as $key => $value) {
                     if(str_contains($key, "basket-item-id-")){
                         $id = $value;
-                        $quantity = $_POST['basket-item-quantity-' . $value];
+                        $quantity = $_POST['basket-item-quantite-' . $value];
                         $price = $_POST['basket-item-price-' . $value];
                         $result = insertOrderItem($orderId, $id, $price, $quantity);
                         if(!$result) {

@@ -82,7 +82,18 @@
     align-items: flex-end;
     gap: 10px;
     margin: 30px 0;
-    font-size: 20px;
+    font-size: 16px;
+    width: max(50%, 300px);
+    margin-left: auto;
+}
+.order-total > span{
+    width: 100%;
+    display: flex;
+}
+.order-total > span > span{
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
 }
 
 .item-details .item-photo {
@@ -125,4 +136,27 @@
     color: var(--red);
     text-decoration: underline;
     margin-left: 20px;
+}
+
+#payment-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+#payment-form h3{
+    width: 100%;
+}
+
+#payment-form .form-footer{
+    width: 100%;
+}
+#payment-form .form-footer *{
+    font-size: 16px;
+}
+
+.history{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

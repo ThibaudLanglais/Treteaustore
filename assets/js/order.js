@@ -12,22 +12,24 @@
 // })
 
 const orderId = new URLSearchParams(location.href).get('id');
- var inputOrderDate = document.getElementById('order-date')
- var inputShippingDate = document.getElementById('order-shipping-date')
- var inputEta = document.getElementById('order-eta')
- var inputStatus = document.getElementById('order-status')
- var inputNote = document.getElementById('order-note')
- var inputShippingFee = document.getElementById('order-shipping-fee')
- var inputServiceFee = document.getElementById('order-service-fee')
- var clientContainer = document.querySelector('.order-client-info')
- var inputItems = document.getElementById('order-items')
- var packetsContainer = document.querySelector('.packets')
- const form = document.querySelector('form');
- const formAction = form.dataset.action;
- const itemTotalPriceSpan = document.getElementById('items-total-price');
- const servicePriceSpan = document.getElementById('service-fee-price');
- const shippingPriceSpan = document.getElementById('shipping-fee-price');
- const totalSpan = document.getElementById('order-total-span');
+var inputOrderDate = document.getElementById('order-date')
+var inputShippingDate = document.getElementById('order-shipping-date')
+var inputEta = document.getElementById('order-eta')
+var inputStatus = document.getElementById('order-status')
+var inputNote = document.getElementById('order-note')
+var inputShippingFee = document.getElementById('order-shipping-fee')
+var inputServiceFee = document.getElementById('order-service-fee')
+var clientContainer = document.querySelector('.order-client-info')
+var inputItems = document.getElementById('order-items')
+var packetsContainer = document.querySelector('.packets')
+const form = document.querySelector('form');
+const formAction = form.dataset.action;
+const itemTotalPriceSpan = document.getElementById('items-total-price');
+const servicePriceSpan = document.getElementById('service-fee-price');
+const shippingPriceSpan = document.getElementById('shipping-fee-price');
+const totalSpan = document.getElementById('order-total-span');
+const remainingSpan = document.getElementById('order-remaining-span');
+const paymentInstances = document.querySelectorAll('.payment-instance');
 
 var orderDetails = [
    "order-date",
@@ -128,9 +130,9 @@ function attachListenersToOrderItems(){
 }
 
 function renderPrice(){
-   var sommeItems = 0;
+   var sommeItems = 0, total;
    JSON.parse(localStorage.getItem('order-items')).forEach(item => {
-      sommeItems += parseFloat(item.quantite) * parseFloat(item.prix_de_vente);
+      sommeItems += parseFloat(item.quantite) * parseFloat(item.prix_effectif);
    });
    itemTotalPriceSpan.textContent = sommeItems.toFixed(2);
    var servicePrice = parseFloat(inputServiceFee.value);
@@ -138,9 +140,15 @@ function renderPrice(){
 
    servicePriceSpan.textContent = servicePrice.toFixed(2);
    shippingPriceSpan.textContent = shippingPrice.toFixed(2);
-   totalSpan.textContent = (sommeItems + servicePrice + shippingPrice).toFixed(2);
+   total = sommeItems + servicePrice + shippingPrice;
+   totalSpan.textContent = (total).toFixed(2);
    
    //Reste à payer
+   var paid = 0;
+   paymentInstances.forEach(instance => {
+      paid += parseFloat(instance.dataset.amount);
+   })
+   remainingSpan.textContent = (total - paid).toFixed(2)
 }
 
 function updateItem(id, quantite){

@@ -113,24 +113,25 @@ function updateOrder($id, $date_order, $order_status, $dispatched_date, $note, $
     ));
 }
 
-function insertOrderItem($orderId, $itemId, $price, $quantity)
+function insertOrderItem($orderId, $itemId, $price, $quantity, $status)
 {
     global $bdd;
     $req = $bdd->prepare(
-        "INSERT INTO contient (id_order, id_item, prix_effectif, quantite) 
-        VALUES (?, ?, ?, ?)"
+        "INSERT INTO contient (id_order, id_item, prix_effectif, quantite, item_order_status) 
+        VALUES (?, ?, ?, ?, ?)"
     );
-    return $req->execute(array($orderId, $itemId, $price, $quantity));
+    $result = $req->execute(array($orderId, $itemId, $status == "free-gift" ? 0 : $price, $quantity, $status));
+    return $result;
 }
 
-function updateOrderItem($orderId, $itemId, $price, $quantity)
+function updateOrderItem($orderId, $itemId, $price, $quantity, $status)
 {
     global $bdd;
     $req = $bdd->prepare(
-        "UPDATE contient SET prix_effectif = ?, quantite = ? 
+        "UPDATE contient SET prix_effectif = ?, quantite = ?, item_order_status = ? 
         WHERE id_order = ? and id_item = ?"
     );
-    return $req->execute(array($price, $quantity, $orderId, $itemId));
+    return $req->execute(array($status == "free-gift" ? 0 : $price, $quantity, $status, $orderId, $itemId));
 }
 
 function getClientOrders($id)
@@ -144,8 +145,11 @@ function getClientOrders($id)
 
 function deleteOrderItemsNotInList($id, $list){
     global $bdd;
-    $req = $bdd->prepare("DELETE FROM contient WHERE id_order = ? and id_item NOT IN (?)");
-    return $req->execute(array($id, empty($list) ? '' : join(",", $list)));
+    $inQuery = implode(',', array_fill(0, count($list), '?'));
+    empty($list) && $inQuery == null;
+    $req = $bdd->prepare("DELETE FROM contient WHERE id_order = ? and id_item NOT IN (". (empty($inQuery) ? "''" : $inQuery) .")");
+    $params = array_merge([$id], $list);
+    return $req->execute($params);
 }
 
 function getOrderItems($id){
@@ -154,4 +158,23 @@ function getOrderItems($id){
     $req->execute(array($id));
     $req = $req->fetchAll(PDO::FETCH_ASSOC);
     return $req;
+}
+
+function deleteOrder($id){
+    global $bdd;
+    $req = $bdd->prepare("DELETE FROM commande WHERE id_order = ?");
+    return $req->execute(array($id));
+}
+
+function addPayment($orderId, $amount, $mode){
+    global $bdd;
+    $req = $bdd->prepare("INSERT INTO paiement (id_order, montant, mode_paiement) VALUES (?, ?, ?)");
+    return $req->execute(array($orderId, $amount, $mode));
+}
+
+function getOrderPayments($orderId){
+    global $bdd;
+    $req = $bdd->prepare("SELECT * FROM paiement WHERE id_order = ?");
+    $req->execute(array($orderId));
+    return $req->fetchAll(PDO::FETCH_ASSOC);
 }

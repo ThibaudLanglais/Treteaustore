@@ -35,7 +35,7 @@
                         <td><?= $value["name_item"] ?></td>
                         <td><?= $value['description'] ?></td>
                         <td><?= $value['prix_de_vente'] ?></td>
-                        <td><input class="quantity" type="number" min="0" step="1" value="1"></td>
+                        <td><input class="quantite" type="number" min="0" step="1" value="1"></td>
                         <td>
                            <button data-item-data="<?= htmlspecialchars(json_encode($value)) ?>" class="add-item">
                               <img src="./assets/add.svg" alt="Sélectionner le item">

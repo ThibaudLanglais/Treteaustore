@@ -1,8 +1,4 @@
 let itemStatusList = [
-   {value: "in-stock", name: "En stock"},
-   {value: "available", name: "Disponible"},
-   {value: "not-available", name: "Non disponible"},
-   {value: "out-of-stock", name: "Plus en stock"},
    {value: "free-gift", name: "Offert"},
    {value: "packed", name: "Empaqueté"},
    {value: "dispatched", name: "Envoyé"},
@@ -27,11 +23,11 @@ let renderItem = (parentNode, itemData) => {
            <p>Unité: ${itemData.prix_de_vente}€ | Promotion: aucune</p>
        </div>
        <div class="item-right">
-           <select disabled class="item-status-input" name="item-status">
+           <select class="item-status-input" name="basket-item-status-input-${itemData.id_item}">
    `
    itemStatusList.forEach(status => {
       str += `
-         <option ${status.value === itemData.status.toLowerCase().replaceAll(/ /gi, '-') ? "selected" : ""} value="${status.value}">${status.name}</option>
+         <option ${status.value === itemData.item_order_status.toLowerCase().replaceAll(/ /gi, '-') ? "selected" : ""} value="${status.value}">${status.name}</option>
       `
    })
 
@@ -42,7 +38,7 @@ let renderItem = (parentNode, itemData) => {
                <input class="item-id-input" name="basket-item-id-${itemData.id_item}" type="hidden" value="${itemData.id_item}">
                <input class="item-price-input" name="basket-item-price-${itemData.id_item}" type="hidden" value="${itemData.prix_de_vente}">
                <input class="item-operation-input" name="basket-item-operation-${itemData.id_item}" type="hidden" value="${itemData.operation}">
-               <p>Total: ${(itemData.quantite * itemData.prix_de_vente).toFixed(2)}€</p>
+               <p>Total: ${(itemData.item_order_status == "free-gift" ? 0 : (itemData.quantite * itemData.prix_de_vente)).toFixed(2)}€</p>
                <button class="delete-item" type="button">Supprimer de la commande</button>
            </div>
        </div>
